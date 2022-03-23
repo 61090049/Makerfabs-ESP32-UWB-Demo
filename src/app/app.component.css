@@ -1,0 +1,28 @@
+* {
+    font-family: sans-serif;
+}
+
+.content-box {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9em;
+    min-width: 250px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.logo {
+    margin-right: 10px;
+    font-size: 50px;
+}
+
+.bar {
+    font-size:10px;
+    transform: scaleY(500%) translate(0,-2%);
+}
+
+.mat-toolbar {
+    background: black;
+    color:white
+}

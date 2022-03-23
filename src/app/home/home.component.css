@@ -1,0 +1,26 @@
+* {
+    font-family: sans-serif;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+}
+
+.content-card {
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: auto;
+    font-size: 0.9em;
+    min-width: 250px;
+    border-radius: 5px 5px 5px 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    max-width: 45%;
+}
+
+.header {text-align: center; font-family: Verdana;}
+.footer {text-align: center; font-family: Courier; color: #bbbbbb;}

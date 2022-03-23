@@ -7,11 +7,11 @@ import { ApiService } from '../api.service';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    users = [];
+    users : any[] = [];
     constructor(private apiService : ApiService) { }
 
     ngOnInit(): void {
-        this.apiService.get().subscribe((data:any) => {
+        this.apiService.get().subscribe((data: any) => {
             console.log(data);
             this.users = data;
         });

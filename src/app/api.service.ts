@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
 
-    private API_LOC = "http://localhost:3000";
+    private API_LOC = "http://localhost:3000/tag/";
     constructor(private httpClient : HttpClient) { }
 
     public get(){
