@@ -32,9 +32,9 @@
 
 .card-detail {
     border-radius: 2px 2px 2px 2px;
-    min-height: 200px;
     text-align: center;
-    font-family: Courier;
+    font-family: 'Lucida Sans';
+    font-weight: bold;
 }
 
 .anchor-label-bottom {

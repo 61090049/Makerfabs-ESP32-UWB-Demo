@@ -13,7 +13,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-  
+
+import { Chart } from 'chart.js';
+import { GoogleChartsModule } from 'angular-google-charts'; 
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import {MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    GoogleChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

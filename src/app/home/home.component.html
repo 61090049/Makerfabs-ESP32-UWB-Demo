@@ -2,11 +2,13 @@
     <mat-spinner class="container" *ngIf="users.length === 0"></mat-spinner>
     <mat-card *ngFor="let user of users" class="content-card">
         <mat-card-header>
-            <mat-card-title class="card-header">{{user.Name}}</mat-card-title>
-            <mat-card-subtitle class="card-info">{{user.ID}}</mat-card-subtitle>
+            <mat-card-title class="card-header">{{user.Entity.Name}}</mat-card-title>
+            <mat-card-subtitle class="card-info">{{user.Entity.ID}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content class="card-detail">
-<!--
+            Currently Near:<br>
+            {{user.Nearest.EUI}} at {{user.Nearest.Range}} meters.
+            <!--
             <svg id="mini-canvas" class="canvas" style="border: 2px solid gainsboro; height: 200px; width:240px; border-radius:2%">
                 <g id="tag-key">
                     <rect class="tag" rx="100%" ry="100%"
@@ -55,15 +57,9 @@
                 </g>
             </svg>
 -->
-<!--
-            <p *ngFor="let anchor of user.Anchor">
-                {{anchor.Range}}
-            </p>
--->
-
         </mat-card-content>
         <mat-card-actions>
-      <button mat-button style="margin-left: 36%;"> Details</button>
-    </mat-card-actions>
+            <button mat-button style="margin-left: 36%;" routerLink="/detail">Details</button>
+        </mat-card-actions>
     </mat-card>
 </div>
