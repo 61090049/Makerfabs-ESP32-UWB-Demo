@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 
 const RESPONSE_DUR = 5000;
+const RET_GET_THRESHOLD = 5;
+const RET_CAL_THRESHOLD = 8;
 
 @Component({
     selector: 'app-detail',
@@ -19,6 +21,9 @@ export class DetailComponent implements OnInit, OnDestroy {
     A1_TO_A2 = 1;
     A2_TO_A3 = 1;
     MUL = 10;
+
+    retryGetCount = 0;
+    retryCalCount = 0;
 
     observableInterval: any;
     observableAPI: any;
@@ -56,16 +61,21 @@ export class DetailComponent implements OnInit, OnDestroy {
                 try {
                     this.observableAPI = this.apiService.getID(this._user.ID).subscribe((datas: any) => {
                         this.updateMiniMap(datas[0]);
+                        this.retryGetCount = 0;
                         this.observableAPI.unsubscribe();
                         //console.log(this._user);
                     });
                 } catch (error) {
-                    let snackBarRef = this.snackBar.open('No such user exist.', 'Go Back', { duration: 3000 });
-                    this.observableInterval.unsubscribe();
-                    snackBarRef.afterDismissed().subscribe(() => {
-                        console.log('The snackbar was dismissed');
-                    });
-                    console.error("No answer from the API server.");
+                    this.retryGetCount++;
+                    if (this.retryGetCount >= RET_GET_THRESHOLD) {
+                        let snackBarRef = this.snackBar.open('No incoming data stream.', 'Go Back', { duration: RESPONSE_DUR });
+                        this.observableInterval.unsubscribe();
+                        snackBarRef.afterDismissed().subscribe(() => {
+                            this.location.back();
+                            console.log('Returning to homepage.');
+                        });
+                    }
+                    console.error("ERR: No data packets recieved.");
                 }
             })
 
@@ -93,12 +103,17 @@ export class DetailComponent implements OnInit, OnDestroy {
                 [position[2][0], position[2][1]],
             ];
         } catch (error) {
-            let snackBarRef = this.snackBar.open('Please recalibrate the UWB modules.', 'OK', { duration: 3000 });
-            snackBarRef.afterDismissed().subscribe(() => {
+            this.retryCalCount++;
+            if (this.retryCalCount >= RET_CAL_THRESHOLD) {
+                let snackBarRef = this.snackBar.open('UWB Modules may need recalibration.', 'Go Back', { duration: RESPONSE_DUR });
                 this.observableInterval.unsubscribe();
-                console.log('The snackbar was dismissed');
-            });
-            console.error("Please recalibrate the anchor distance(s).")
+                snackBarRef.afterDismissed().subscribe(() => {
+                    this.location.back();
+                    console.log('Returning to homepage.');
+                });
+            }
+
+            console.error("ERR: Invalid variable(s) in trilateration process.")
         }
 
         let scale = this.getMaxScale(this.cdata);
