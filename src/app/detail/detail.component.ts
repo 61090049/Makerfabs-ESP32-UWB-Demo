@@ -9,6 +9,8 @@ const RESPONSE_DUR = 5000;
 const RET_GET_THRESHOLD = 5;
 const RET_CAL_THRESHOLD = 8;
 const GET_POS_INTERVAL = 3000;
+const TAG_COLOR = 'color:green';
+const ANCHOR_COLOR = 'color:orange';
 
 @Component({
     selector: 'app-detail',
@@ -35,14 +37,14 @@ export class DetailComponent implements OnInit, OnDestroy {
     title = '';
     type = ChartType.ScatterChart;
     roles = [];
-    cdata: any = [[0, 0]];
-    columnNames = ['Name', ''];
+    cdata: any = [[0, 0, '', 'color:crimson']];
+    columnNames = ['', '', {role:'annotation'}, {role:'style'}];
     options = {
         legend: { position: 'none' },
         hAxis: { minValue: -100, maxValue: 100, gridlines: { count: 1 } },
         vAxis: { minValue: -100, maxValue: 100, gridlines: { count: 1 } },
-        pointSize: 10,
-        pointShape: 'square',
+        pointSize: 50,
+        pointShape: 'circle',
         backgroundColor: { fill: 'transparent' }
     };
     width = 700;
@@ -57,7 +59,6 @@ export class DetailComponent implements OnInit, OnDestroy {
         try {
             this._user = history.state.data;
             console.log(this._user);
-            this.title = this._user.Name;
 
             this.observableInterval = interval(GET_POS_INTERVAL).subscribe(() => {
                 try {
@@ -101,11 +102,12 @@ export class DetailComponent implements OnInit, OnDestroy {
     updateMiniMap(tag: any): boolean {
         //var anchor_count = tag.Anchor.length;
         var position = this.calc2A(tag.Anchor);
+        //console.log(tag.Anchor);
         try {
             this.cdata = [
-                [position[0][0], position[0][1]],
-                [position[1][0], position[1][1]],
-                [position[2][0], position[2][1]],
+                [position[0][0], position[0][1], this._user.Name, TAG_COLOR],
+                [position[1][0], position[1][1], tag.Anchor[0].EUI, ANCHOR_COLOR],
+                [position[2][0], position[2][1], tag.Anchor[1].EUI, ANCHOR_COLOR],
             ];
         } catch (error) {
             this.retryCalCount++;

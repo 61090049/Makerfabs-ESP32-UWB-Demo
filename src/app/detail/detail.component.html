@@ -1,10 +1,14 @@
 <div class="container">
     <mat-spinner class="container" *ngIf="getStatus == false"></mat-spinner>
     <google-chart #chart [title]="title" [type]="type" [data]="cdata" [columns]="columnNames" [options]="options"
-        [width]="width" [height]="height">
+        [width]="width" [height]="height" [columns]="columnNames">
     </google-chart>
 </div>
-<div class="container">
-    <p id="error_msg" class="footer">
+<div class="container-detail" *ngIf="_user != null">
+    <p class="footer" style="font-size: 1.3em;transform: translate(0, 300px);">Details</p>
+    <p class="footer" style="font-weight:300 ;font-size: 1.0em;">
+        Name: {{_user.Name}}<br>
+        Age: {{_user.Age}}<br>
+        ID: {{_user.ID}}<br>
     </p>
 </div>

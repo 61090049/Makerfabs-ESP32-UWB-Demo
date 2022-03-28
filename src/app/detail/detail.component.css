@@ -13,19 +13,21 @@
     border-radius: 1px 1px 1px 1px;
 }
 
-.detail {
-    text-align: center;
-    font-family: Courier;
-    color: #bbbbbb;
-    font-weight: 700;
-    margin-bottom: 20px;
+.container-detail {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 30%);
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1px 1px 1px 1px;
 }
 
 .footer {
-    font-size: 1.7em;
     text-align: center;
     font-family: Verdana;
     font-weight: bold;
     margin-bottom: 20px;
-    transform: translate(0, 250px);
+    transform: translate(0, 280px);
 }
