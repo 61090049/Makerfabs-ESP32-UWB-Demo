@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.observableAPI.unsubscribe();
             });
         })
+        window.onbeforeunload = () => this.ngOnDestroy();
     }
 
     ngOnDestroy(){

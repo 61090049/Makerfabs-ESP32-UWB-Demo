@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 const RESPONSE_DUR = 5000;
 const RET_GET_THRESHOLD = 5;
 const RET_CAL_THRESHOLD = 8;
+const GET_POS_INTERVAL = 3000;
 
 @Component({
     selector: 'app-detail',
@@ -58,7 +59,7 @@ export class DetailComponent implements OnInit, OnDestroy {
             console.log(this._user);
             this.title = this._user.Name;
 
-            this.observableInterval = interval(3000).subscribe(() => {
+            this.observableInterval = interval(GET_POS_INTERVAL).subscribe(() => {
                 try {
                     this.observableAPI = this.apiService.getID(this._user.ID).subscribe((datas: any) => {
                         this.getStatus = this.updateMiniMap(datas[0]);
@@ -88,10 +89,13 @@ export class DetailComponent implements OnInit, OnDestroy {
             });
             console.error("ERR:No user data found");
         }
+        
+        window.onbeforeunload = () => this.ngOnDestroy();
     }
 
     ngOnDestroy() {
-        this.observableInterval.unsubscribe();
+        try{this.observableInterval.unsubscribe();}
+        catch(error){console.error("DEBUG ONLY: Page in abnormal state due to manual URI input.")}
     }
 
     updateMiniMap(tag: any): boolean {
