@@ -24,6 +24,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
     retryGetCount = 0;
     retryCalCount = 0;
+    getStatus = false;
 
     observableInterval: any;
     observableAPI: any;
@@ -60,7 +61,7 @@ export class DetailComponent implements OnInit, OnDestroy {
             this.observableInterval = interval(3000).subscribe(() => {
                 try {
                     this.observableAPI = this.apiService.getID(this._user.ID).subscribe((datas: any) => {
-                        this.updateMiniMap(datas[0]);
+                        this.getStatus = this.updateMiniMap(datas[0]);
                         this.retryGetCount = 0;
                         this.observableAPI.unsubscribe();
                         //console.log(this._user);
@@ -93,7 +94,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.observableInterval.unsubscribe();
     }
 
-    updateMiniMap(tag: any): void {
+    updateMiniMap(tag: any): boolean {
         //var anchor_count = tag.Anchor.length;
         var position = this.calc2A(tag.Anchor);
         try {
@@ -112,8 +113,8 @@ export class DetailComponent implements OnInit, OnDestroy {
                     console.log('Returning to homepage.');
                 });
             }
-
             console.error("ERR: Invalid variable(s) in trilateration process.")
+            return false;
         }
 
         let scale = this.getMaxScale(this.cdata);
@@ -134,6 +135,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         };
 
         this.cdata = Object.assign([], this.cdata)
+        return true;
         //console.log(this.cdata);
         /*
         var t0_slip = 'translate(' + 0 + ',' + 0 + ')';

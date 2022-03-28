@@ -1,4 +1,5 @@
 <div class="container">
+    <mat-spinner class="container" *ngIf="getStatus == false"></mat-spinner>
     <google-chart #chart [title]="title" [type]="type" [data]="cdata" [columns]="columnNames" [options]="options"
         [width]="width" [height]="height">
     </google-chart>
