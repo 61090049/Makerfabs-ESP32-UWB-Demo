@@ -1,9 +1,9 @@
-<google-chart #chart
-   [title]="title"
-   [type]="type"
-   [data]="data"
-   [columns]="columnNames"
-   [options]="options"
-   [width]="width"
-   [height]="height">
-</google-chart>
+<div class="container">
+    <google-chart #chart [title]="title" [type]="type" [data]="cdata" [columns]="columnNames" [options]="options"
+        [width]="width" [height]="height">
+    </google-chart>
+</div>
+<div class="container">
+    <p id="error_msg" class="footer">
+    </p>
+</div>

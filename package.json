@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "mock": "json-server --watch ./test-serv/tag.json"
+    "mock": "json-server --watch ./test-serv/tag.json",
+    "mockmore": "json-server --watch ./test-serv/tag_mul.json"
   },
   "private": true,
   "dependencies": {

@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
 
     private API_BASE = "http://localhost:3000/tag/";
-    private API_QUERY_ID = "http://localhost:3000/tag/";
+    private API_QUERY_ID = "http://localhost:3000/tag?ID=";
     private API_NON = "http://localhost:3000/no-exist/";
     constructor(private httpClient : HttpClient) { }
 
@@ -15,8 +15,8 @@ export class ApiService {
         return this.httpClient.get(this.API_BASE);
     }
 
-    public getID(){
-        return this.httpClient.get(this.API_QUERY_ID);
+    public getID(id:string){
+        return this.httpClient.get(this.API_QUERY_ID + id);
     }
 
     public getNon(){
