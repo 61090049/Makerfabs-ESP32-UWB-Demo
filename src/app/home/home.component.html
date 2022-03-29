@@ -1,0 +1,65 @@
+<div style="padding: 13px; display: flex; flex-wrap: wrap;" >
+    <mat-spinner class="container" *ngIf="users.length === 0"></mat-spinner>
+    <mat-card *ngFor="let user of users" class="content-card">
+        <mat-card-header>
+            <mat-card-title class="card-header">{{user.Entity.Name}}</mat-card-title>
+            <mat-card-subtitle class="card-info">{{user.Entity.ID}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-detail">
+            Currently Near:<br>
+            {{user.Nearest.EUI}} at {{user.Nearest.Range}} meters.
+            <!--
+            <svg id="mini-canvas" class="canvas" style="border: 2px solid gainsboro; height: 200px; width:240px; border-radius:2%">
+                <g id="tag-key">
+                    <rect class="tag" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible"/>
+                    <text class="tag-label"
+                    width="16px" height="16px" visibility="visible">TAG</text>
+                </g>
+
+                <g id="anchor1-key">
+                    <rect class="anchor" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible"/>
+                    <text class="anchor-label-bottom"
+                    width="16px" height="16px" visibility="visible">ANC</text>
+                </g>
+
+                <g id="anchor2-key">
+                    <rect class="anchor" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible"/>
+                    <text class="anchor-label-bottom"
+                    width="16px" height="16px" visibility="visible">ANC</text>
+                </g>
+            
+                <g id="anc-2">
+                    <rect id="pdraw-2" class="anchor" x="3%" y="4%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible"/>
+                    <text id="plabel-2" class="anchor-label-bottom" x="3%" y="4%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible">ANC</text>
+                </g>
+                <g id="anc-3">
+                    <rect id="pdraw-3" class="anchor" x="3%" y="88%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible"/>
+                    <text id="plabel-3" class="anchor-label-top" x="3%" y="88%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible">ANC</text>
+                </g>
+                <g id="anc-4">
+                    <rect id="pdraw-4" class="anchor" x="90%" y="88%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible"/>
+                    <text id="plabel-4" class="anchor-label-top" x="90%" y="88%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible">ANC</text>
+                </g>
+                <g id="tag-1">
+                    <rect id="pdraw-5" class="tag" x="46%" y="46%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible"/>
+                    <text id="plabel-5" class="tag-label" x="46%" y="46%" rx="100%" ry="100%"
+                    width="16px" height="16px" visibility="visible">TAG</text>
+                </g>
+            </svg>
+-->
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button style="margin-left: 36%;" routerLink="/detail" [state]="{data:user.Entity}">Details</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
