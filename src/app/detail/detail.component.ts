@@ -23,7 +23,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     A0_TO_A1 = 0.5;
     A1_TO_A2 = 1;
     A2_TO_A3 = 1;
-    MUL = 10;
+    COMPENSATOR = 0.4;
+    EFF_SCALE = 4;
 
     retryGetCount = 0;
     retryCalCount = 0;
@@ -106,9 +107,11 @@ export class DetailComponent implements OnInit, OnDestroy {
         try {
             this.cdata = [
                 [position[0][0], position[0][1], this._user.Name, TAG_COLOR],
-                [position[1][0], position[1][1], tag.Anchor[0].EUI, ANCHOR_COLOR],
-                [position[2][0], position[2][1], tag.Anchor[1].EUI, ANCHOR_COLOR],
+                [position[1][0]-this.COMPENSATOR, position[1][1], tag.Anchor[0].EUI, ANCHOR_COLOR],
+                [position[2][0]-this.COMPENSATOR, position[2][1]-this.COMPENSATOR, tag.Anchor[1].EUI, ANCHOR_COLOR],
             ];
+            //console.log(position[0][0]);
+            //console.log(typeof(position[0][0]));
         } catch (error) {
             this.retryCalCount++;
             if (this.retryCalCount >= RET_CAL_THRESHOLD) {
@@ -128,12 +131,12 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.options = {
             legend: { position: 'none' },
             hAxis: {
-                minValue: scale[0] * -1, maxValue: scale[0],
-                gridlines: { count: 50 }
+                minValue: -this.EFF_SCALE, maxValue: this.EFF_SCALE,
+                gridlines: { count: 100 }
             },
             vAxis: {
-                minValue: scale[1] * -1, maxValue: scale[1],
-                gridlines: { count: 50 }
+                minValue: -this.EFF_SCALE, maxValue: this.EFF_SCALE,
+                gridlines: { count: 100 }
             },
             pointSize: 10,
             pointShape: 'circle',

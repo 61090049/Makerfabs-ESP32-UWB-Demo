@@ -3,6 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { interval, Observable, Subscription } from 'rxjs';
 import { MatSnackBar} from '@angular/material/snack-bar';
+import { MatAnchor } from '@angular/material/button';
 
 const MAX_DISTANCE = 1000;
 
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     users : any[] = [];
     observableInterval : any;
     observableAPI : any;
+    COMPENSATOR = 0.4;
 
     canvas = document.getElementById('mini-canvas');
 
@@ -43,6 +45,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                 Nearest = anchor;
             }
         });
+        Nearest.Range -= this.COMPENSATOR;
+        Nearest.Range = parseFloat(Nearest.Range.toFixed(2));
 
         //const nearest = {Nearest:};
         this.users.push({Nearest, Entity});
