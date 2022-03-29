@@ -20,11 +20,12 @@ const ANCHOR_COLOR = 'color:orange';
 export class DetailComponent implements OnInit, OnDestroy {
     _user: any;
 
-    A0_TO_A1 = 0.5;
-    A1_TO_A2 = 1;
-    A2_TO_A3 = 1;
-    COMPENSATOR = 0.4;
-    EFF_SCALE = 4;
+    A0_TO_A1 = 0.5; // Distance between two anchors.
+    isCalibrating = false;
+    sumCF = 0;
+    countCF = 0;
+    avgCF = 0.4; // Default average compensation factor for ToF.
+    EFF_SCALE = 4; // Efficient scale, dependant on environment area.(metre)
 
     retryGetCount = 0;
     retryCalCount = 0;
@@ -107,8 +108,8 @@ export class DetailComponent implements OnInit, OnDestroy {
         try {
             this.cdata = [
                 [position[0][0], position[0][1], this._user.Name, TAG_COLOR],
-                [position[1][0]-this.COMPENSATOR, position[1][1], tag.Anchor[0].EUI, ANCHOR_COLOR],
-                [position[2][0]-this.COMPENSATOR, position[2][1]-this.COMPENSATOR, tag.Anchor[1].EUI, ANCHOR_COLOR],
+                [position[1][0]-this.avgCF, position[1][1], tag.Anchor[0].EUI, ANCHOR_COLOR],
+                [position[2][0]-this.avgCF, position[2][1]-this.avgCF, tag.Anchor[1].EUI, ANCHOR_COLOR],
             ];
             //console.log(position[0][0]);
             //console.log(typeof(position[0][0]));
@@ -171,4 +172,11 @@ export class DetailComponent implements OnInit, OnDestroy {
         });
         return [x, y];
     }
+
+    setCalibrateFactor():void{
+        // Use function only when anchor distance -> 0
+        this.avgCF = this.sumCF/this.countCF;
+        this.avgCF -= this.A0_TO_A1;
+    }
+
 }
